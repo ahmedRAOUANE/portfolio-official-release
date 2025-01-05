@@ -46,14 +46,3 @@ export async function signup(formData: FormData) {
     revalidatePath('/', 'layout')
     redirect("/")
 }
-
-export async function signout() {
-    const result = await fetch("http://localhost:3000/api/auth/signout", {
-        method: "POST",
-        credentials: "include"
-    });
-    const response = result.json();
-    console.log("response: ", response);
-
-    return response;
-}
