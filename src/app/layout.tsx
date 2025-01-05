@@ -6,6 +6,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Ahmed Official Portfolio",
   description: "this is the Official release of Ahmed Portfolio",
+  icons: {
+    icon: "/me-logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -16,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased`}
+        className={`antialiased bg-gray-300 text-lg text-gray-800`} 
       >
         {children}
       </body>
