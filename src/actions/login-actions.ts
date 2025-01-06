@@ -2,10 +2,8 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { getUserProfile } from '@/utils/data'
-import { Session, User } from '@supabase/supabase-js'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { NextResponse } from 'next/server'
 
 export async function login(formData: FormData) {
     const supabase = await createClient()
