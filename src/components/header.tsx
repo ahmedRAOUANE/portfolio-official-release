@@ -24,12 +24,14 @@ const Header = async () => {
 
                     <div className="flex items-center gap-4">
                         {
-                            !user && (
-                                <>
-                                    <Link href={"/login"} className='px-4 py-1 bg-black text-white rounded-full'>login</Link>
-                                    <Link href={"/signup"} className='px-4 py-1 bg-black/20 rounded-full'>signup</Link>
-                                </>
-                            )
+                            user ?
+                                (<Link href={"/blog"} className='px-4 py-1 bg-black text-white rounded-full'>blog</Link>) :
+                                (
+                                    <>
+                                        <Link href={"/login"} className='px-4 py-1 bg-black text-white rounded-full'>login</Link>
+                                        <Link href={"/signup"} className='px-4 py-1 bg-black/20 rounded-full'>signup</Link>
+                                    </>
+                                )
                         }
                         {/* <button className="btn btn-primary">Resume</button> */}
                     </div>
