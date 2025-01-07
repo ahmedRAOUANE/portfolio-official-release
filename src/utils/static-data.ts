@@ -60,3 +60,53 @@ export const navLinks = [
         link: "#contact",
     },
 ]
+
+export const adminNavLinks = [
+    {
+        href: "/admin",
+        name: "Home",
+        description: "some text here",
+        subLinks: [],
+        flag: "ongoing",
+    },
+    {
+        href: "/admin/portfolio",
+        name: "Portfolio",
+        description: "some text here",
+        subLinks: [
+            {
+                href: "/admin/header",
+                name: "Header",
+                description: "some text here",
+                subLinks: [],
+            },
+            {
+                href: "/admin/sections",
+                name: "Sections",
+                description: "some text here",
+                subLinks: [],
+            },
+            {
+                href: "/admin/footer",
+                name: "Footer",
+                description: "some text here",
+                subLinks: [],
+            },
+            {
+                href: "/admin/components",
+                name: "Components",
+                description: "some text here",
+                subLinks: [],
+            },
+        ],
+        flag: "ongoing",
+    },
+    {
+        href: "/admin/blog",
+        name: "Blog",
+        description: "some text here",
+        subLinks: [],
+        flag: "disabled",
+    }
+]
+

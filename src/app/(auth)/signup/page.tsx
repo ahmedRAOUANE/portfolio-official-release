@@ -29,9 +29,9 @@ const SignupPage = () => {
                             <p className='text-center'>{error}!</p>
                         </div>
                     )}
-                    
-                    <input className='px-4 py-2 rounded-lg outline-1 ' type="email" name="email" id="email" required placeholder='Email' />
-                    <input className='px-4 py-2 rounded-lg outline-1 ' type="password" name="password" id="password" required placeholder='pasword' />
+
+                    <input className='px-4 py-2 rounded-lg outline-1 bg-gray-200 ' type="email" name="email" id="email" required placeholder='Email' />
+                    <input className='px-4 py-2 rounded-lg outline-1 bg-gray-200 ' type="password" name="password" id="password" required placeholder='pasword' />
                     <input className='px-4 py-2 rounded-lg outline-1 bg-blue-500 text-white cursor-pointer' type="submit" name="submit" id="submit" value={"Signup"} />
                 </form>
 
