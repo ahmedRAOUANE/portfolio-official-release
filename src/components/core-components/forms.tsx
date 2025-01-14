@@ -9,7 +9,7 @@ interface FormProps {
     onSubmit?: FormEventHandler<HTMLFormElement>;
 }
 
-const Form = ({ className, children, action }: FormProps) => {
+const Form = ({ className, children }: FormProps) => {
     return (
         <form
             className={className}

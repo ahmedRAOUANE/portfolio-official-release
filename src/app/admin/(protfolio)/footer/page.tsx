@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 // icons
 import { MdEdit } from 'react-icons/md'
 

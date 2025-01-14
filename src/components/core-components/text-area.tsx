@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { createEditor, Descendant, Element as SlateElement } from "slate";
+import { createEditor, Descendant } from "slate";
 import { Slate, Editable, withReact, RenderElementProps, RenderLeafProps } from "slate-react";
 
 // components

@@ -1,11 +1,9 @@
 
 // components
-import Form from '@/components/core-components/forms';
 import Button from '@/components/core-components/buttons';
 import Section from '@/components/core-components/section';
 import Container from '@/components/core-components/container';
 import Typography from '@/components/core-components/typography';
-import InputField from '@/components/core-components/input-feilds';
 
 // icons
 import { MdEdit } from 'react-icons/md';

@@ -61,6 +61,7 @@ const Toolbar = () => {
 };
 
 // Button component for toggling text and title
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const MarkButton = ({ format, icon }: { format: Text; icon: React.ReactNode }) => {
     const editor = useSlate();
 
@@ -92,7 +93,6 @@ const MarkButton = ({ format, icon }: { format: Text; icon: React.ReactNode }) =
 
 const StyleButton = ({ format, icon }: { format: FontStyle; icon: React.ReactNode }) => {
     const editor = useSlate();
-    const LIST_TYPES: FontStyle[] = ["bold", "italic", "underline", "code"];
 
     const handleClick = () => {
         // Toggle bold, italic, underline, or code
