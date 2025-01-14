@@ -19,6 +19,3 @@ export const getUserProfile = async () => {
 
     return { user, profile };
 }
-
-export const getProfile = async () => {
-}

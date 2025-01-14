@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Ahmed Official Portfolio",
   description: "this is the Official release of Ahmed Portfolio",
   icons: {
-    icon: "/me-logo.svg",
+    icon: "/meInFormal.svg",
   },
 };
 

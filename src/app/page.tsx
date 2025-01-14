@@ -1,6 +1,10 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import Container from "@/components/core-components/container";
+import Section from "@/components/core-components/section";
+import Typography from "@/components/core-components/typography";
 import { landingPageCardData, projects } from "@/utils/static-data";
+import { SectionSizes } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -109,6 +113,20 @@ export default async function Home() {
             </form>
           </div>
         </section>
+
+        <Container variant="section" className={SectionSizes.full}>
+          <Section className={SectionSizes.oneHalf}>
+            <Typography variant="h2" className="text-3xl font-bold">This is a Test</Typography>
+
+            <Typography variant="p" className="text-center">This is a test</Typography>
+          </Section>
+
+          <Section className={SectionSizes.oneHalf}>
+            <Typography variant="h2" className="text-3xl font-bold">This is a Test</Typography>
+
+            <Typography variant="p" className="text-center">This is a test</Typography>
+          </Section>
+        </Container>
       </main>
 
       <Footer />
