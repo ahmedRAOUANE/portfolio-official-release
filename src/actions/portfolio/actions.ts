@@ -1,6 +1,6 @@
 "use server";
 
-import { DataState, Tables } from "@/utils/types";
+import { Tables } from "@/utils/types";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 

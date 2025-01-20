@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { RenderElementProps } from "slate-react";
 
 /**

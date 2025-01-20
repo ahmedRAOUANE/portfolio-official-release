@@ -25,7 +25,9 @@ const Textarea = ({ onEditorChange, defaultValue }: TextareaProps) => {
     ];
 
     const handleEdioreChange = (editorValue: Descendant[]) => {
-        onEditorChange && onEditorChange(editorValue);
+        if (onEditorChange) {
+            onEditorChange(editorValue);
+        }
     };
 
     return (

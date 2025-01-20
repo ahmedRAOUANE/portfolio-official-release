@@ -12,7 +12,6 @@ import InputField from '@/components/core-components/input-feilds';
 // icons
 import { FaArrowLeft } from 'react-icons/fa';
 import { DataState, SectionSizes, Tables } from '@/utils/types';
-import { redirect } from 'next/navigation';
 import Textarea from '@/components/core-components/text-area';
 import { FeatureFlagService } from '@/services/featureFlags';
 

@@ -1,5 +1,5 @@
 // server actions
-import { createHeaderLink, getHeaderLinks } from '@/actions/portfolio/header-actions';
+import { createHeaderLink } from '@/actions/portfolio/header-actions';
 
 // components
 import Link from 'next/link';
