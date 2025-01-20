@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import dataSlice from "./slices/data";
+import inputTypeSlice from "./slices/input-type";
 
 const store = configureStore({
     reducer: {
-        dataSlice
+        dataSlice,
+        inputTypeSlice
     }
 })
 

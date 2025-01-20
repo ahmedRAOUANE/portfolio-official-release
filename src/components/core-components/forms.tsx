@@ -9,12 +9,12 @@ interface FormProps {
     onSubmit?: FormEventHandler<HTMLFormElement>;
 }
 
-const Form = ({ className, children }: FormProps) => {
+const Form = ({ className, children, onSubmit, action }: FormProps) => {
     return (
         <form
             className={className}
-        // onSubmit={(e) => { e.preventDefault(); action(new FormData(e.currentTarget)) }}
-        // action={action}
+            onSubmit={onSubmit}
+            action={action}
         >
             {children}
         </form>

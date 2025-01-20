@@ -8,8 +8,13 @@ import Typography from '@/components/core-components/typography';
 // icons
 import { MdEdit } from 'react-icons/md';
 import CreateSectionForm from '@/components/admin-dashboard/ui/createSectionForm';
+import { getAll } from '@/actions/portfolio/actions';
+import { Tables } from '@/utils/types';
+import Link from 'next/link';
 
-const SectionsControlCenter = () => {
+const SectionsControlCenter = async () => {
+    const createdSections = await getAll(Tables.sections);
+
     return (
         <Container variant='main' className='container p-5 flex flex-col gap-20'>
             <Container variant='section' className='flex flex-col gap-5 p-10'>
@@ -27,13 +32,13 @@ const SectionsControlCenter = () => {
                     </Button>
                 </Section>
 
-                {/* <ul className='flex gap-3'>
-                    {headerLinks.map((link, idx) => (
+                <ul className='flex gap-3'>
+                    {createdSections.map((section, idx) => (
                         <li key={idx} className='flex'>
-                            <Link href={`/admin/header/${link.id}`} className='p-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 shadow outline-2'>{link.name}</Link>
+                            <Link href={`/admin/sections/${section.id}`} className='p-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 shadow outline-2'>{section.name}</Link>
                         </li>
                     ))}
-                </ul> */}
+                </ul>
             </Container>
 
             <Container variant='section'>

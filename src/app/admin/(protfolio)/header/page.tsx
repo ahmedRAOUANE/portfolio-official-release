@@ -12,9 +12,11 @@ import InputField from '@/components/core-components/input-feilds';
 
 // icons
 import { MdEdit } from 'react-icons/md';
+import { getAll } from '@/actions/portfolio/actions';
+import { Tables } from '@/utils/types';
 
 const HeaderConterolCenter = async () => {
-    const headerLinks = await getHeaderLinks();
+    const headerLinks = await getAll(Tables.headerLinks);
 
     return (
         <Container variant="main" className='container p-5 flex flex-col gap-20'>

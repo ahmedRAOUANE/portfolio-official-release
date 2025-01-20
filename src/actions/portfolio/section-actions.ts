@@ -4,14 +4,9 @@ import { createClient } from "@/lib/supabase/server";
 import { Tables } from "@/utils/types";
 import { revalidatePath } from "next/cache";
 
-// TODO: complete the header actions, add validation, Error handling, Returns
+const targetTable = Tables.sections;
 
-const targetTable = Tables.headerLinks;
-
-/**
- * Get the header links from the database
- */
-export const getHeaderLinks = async () => {
+export const getAllSections = async () => {
     const supabase = await createClient();
 
     const { data, error } = await supabase
@@ -26,7 +21,7 @@ export const getHeaderLinks = async () => {
     return data;
 }
 
-export const getSingleHeaderLink = async (id: string) => {
+export const getSingleSection = async (id: string) => {
     const supabase = await createClient();
 
     const { data, error } = await supabase
@@ -43,7 +38,7 @@ export const getSingleHeaderLink = async (id: string) => {
     return data;
 }
 
-export const createHeaderLink = async (formData: FormData) => {
+export const createSection = async (formData: FormData) => {
     const supabase = await createClient();
 
     const { error } = await supabase
@@ -60,21 +55,21 @@ export const createHeaderLink = async (formData: FormData) => {
         // return null;
     }
 
-    revalidatePath("/admin/header");
+    revalidatePath("/admin/sections");
 
     // return true;
 }
 
-export const updateHeaderLink = async (formData: FormData, id: string) => {
+export const updateSection = async (id: string, newData: FormData) => {
     const supabase = await createClient();
 
     const { error } = await supabase
         .from(targetTable)
         .update({
-            name: formData.get("name") as string,
-            url: formData.get("href") as string,
-            description: formData.get("description") as string,
-            isVisible: formData.get("isActive") as string
+            name: newData.get("name") as string,
+            url: newData.get("href") as string,
+            description: newData.get("description") as string,
+            isVisible: newData.get("isActive") as string
         })
         .eq("id", id)
 
@@ -88,7 +83,7 @@ export const updateHeaderLink = async (formData: FormData, id: string) => {
     // return true;
 }
 
-export const deleteHeaderLink = async (id: string) => {
+export const deleteSection = async (id: string) => {
     const supabase = await createClient();
 
     const { error } = await supabase

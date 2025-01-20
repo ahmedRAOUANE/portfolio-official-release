@@ -1,17 +1,10 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
-import { Tables } from "@/utils/types";
+import { DataState, Tables } from "@/utils/types";
 import { revalidatePath } from "next/cache";
+import { createClient } from "@/lib/supabase/server";
 
-// TODO: complete the header actions, add validation, Error handling, Returns
-
-const targetTable = Tables.headerLinks;
-
-/**
- * Get the header links from the database
- */
-export const getHeaderLinks = async () => {
+export const getAll = async (targetTable: Tables) => {
     const supabase = await createClient();
 
     const { data, error } = await supabase
@@ -19,14 +12,14 @@ export const getHeaderLinks = async () => {
         .select("*")
 
     if (error) {
-        console.error("Failed to fetch header links:", error);
+        console.error("Failed to fetch: ", error);
         return [];
     }
 
     return data;
 }
 
-export const getSingleHeaderLink = async (id: string) => {
+export const getSingle = async (targetTable: Tables, id: string) => {
     const supabase = await createClient();
 
     const { data, error } = await supabase
@@ -43,39 +36,29 @@ export const getSingleHeaderLink = async (id: string) => {
     return data;
 }
 
-export const createHeaderLink = async (formData: FormData) => {
+export const create = async <TData>(targetTable: Tables, formData: TData) => {
     const supabase = await createClient();
 
     const { error } = await supabase
         .from(targetTable)
-        .insert({
-            name: formData.get("name") as string,
-            url: formData.get("href") as string,
-            description: formData.get("description") as string,
-            isVisible: formData.get("isActive")
-        })
+        .insert(formData)
 
     if (error) {
-        console.error("Failed to create header link:", error);
+        console.error(`Failed to create ${targetTable}:`, error);
         // return null;
     }
 
-    revalidatePath("/admin/header");
+    revalidatePath(`/admin/${targetTable}`);
 
     // return true;
 }
 
-export const updateHeaderLink = async (formData: FormData, id: string) => {
+export const update = async <TData>(targetTable: Tables, id: string, newData: TData) => {
     const supabase = await createClient();
 
     const { error } = await supabase
         .from(targetTable)
-        .update({
-            name: formData.get("name") as string,
-            url: formData.get("href") as string,
-            description: formData.get("description") as string,
-            isVisible: formData.get("isActive") as string
-        })
+        .update(newData)
         .eq("id", id)
 
     if (error) {
@@ -88,7 +71,7 @@ export const updateHeaderLink = async (formData: FormData, id: string) => {
     // return true;
 }
 
-export const deleteHeaderLink = async (id: string) => {
+export const deleteTarget = async (targetTable: Tables, id: string) => {
     const supabase = await createClient();
 
     const { error } = await supabase

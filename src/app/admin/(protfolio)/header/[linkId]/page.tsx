@@ -1,4 +1,4 @@
-import { getSingleHeaderLink, updateHeaderLink } from '@/actions/portfolio/header-actions';
+import { getSingle, update } from '@/actions/portfolio/actions';
 
 // components
 import Link from 'next/link';
@@ -11,15 +11,18 @@ import InputField from '@/components/core-components/input-feilds';
 
 // icons
 import { FaArrowLeft } from 'react-icons/fa';
+import { Tables } from '@/utils/types';
 
 const EditLink = async ({ params }: { params: Promise<{ linkId: string }> }) => {
     const { linkId } = await params;
-    const { name, url, description, isVisible } = await getSingleHeaderLink(linkId);
+    const targetTable = Tables.headerLinks;
+    const { name, url, description, isVisible } = await getSingle(targetTable, linkId);
 
     const handleUpdate = async (data: FormData) => {
         "use server";
 
-        await updateHeaderLink(data, linkId);
+        await update(targetTable, linkId, data);
+        // await redirect("admin/header")
     }
 
     return (

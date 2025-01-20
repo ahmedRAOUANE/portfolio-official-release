@@ -20,7 +20,7 @@ interface InputFieldsProps {
 
 const InputField = ({
     type, name, id, placeholder, required = false,
-    className, label, onChange, defaultValue, defaultChecked
+    className, label, onChange, defaultValue, checked, defaultChecked
 }: InputFieldsProps) => {
     if (type === "textarea") {
         return (
@@ -51,6 +51,7 @@ const InputField = ({
                 required={required}
                 placeholder={placeholder}
                 defaultChecked={defaultChecked}
+                checked={checked}
             />
             {label && <label className="cursor-pointer" htmlFor={id}>{label}</label>}
         </Section>
