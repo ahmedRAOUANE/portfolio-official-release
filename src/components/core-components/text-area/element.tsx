@@ -45,12 +45,6 @@ const Element = ({ attributes, children, element }: RenderElementProps) => {
                     {children}
                 </p>
             );
-        // case "image":
-        //     return (
-        //         <div>
-        //             <Image src={"test"} alt="image" priority />
-        //         </div>
-        //     );
         default:
             return (
                 <p {...attributes} className="text-base mb-2">

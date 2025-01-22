@@ -1,4 +1,4 @@
-import { DataState, SectionSizes } from "@/utils/types";
+import { ChildType, DataState, SectionSizes } from "@/utils/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Descendant } from "slate";
 
@@ -24,7 +24,7 @@ const dataSlice = createSlice({
         setDescription: (state, action: PayloadAction<string>) => {
             state.description = action.payload
         },
-        setEditorContent: (state, action: PayloadAction<Descendant[]>) => {
+        setEditorContent: (state, action: PayloadAction<ChildType[]>) => {
             state.children = action.payload
         },
         setIsActive: (state, action: PayloadAction<boolean>) => {
@@ -32,10 +32,17 @@ const dataSlice = createSlice({
         },
         setLayout: (state, action: PayloadAction<SectionSizes>) => {
             state.layout = action.payload
+        },
+        updateEditorContent: (state, action: PayloadAction<{ index: number, content: Descendant[] }>) => {
+            const { index, content } = action.payload;
+
+            if (state.children[index]) {
+                state.children[index].children = content;
+            }
         }
     }
 })
 
-export const { setName, setDescription, setEditorContent, setIsActive, setLayout } = dataSlice.actions;
+export const { setName, setDescription, setEditorContent, setIsActive, setLayout, updateEditorContent } = dataSlice.actions;
 export default dataSlice.reducer;
 

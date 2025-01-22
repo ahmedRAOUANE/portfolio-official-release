@@ -9,15 +9,15 @@ import { FaCode } from "react-icons/fa";
 import { FontStyle, Text } from "@/utils/types";
 import { IoMdOptions } from "react-icons/io";
 import { useDispatch } from "react-redux";
-import { setInputType } from "@/store/slices/input-type";
+import { InputType, updateInputType } from "@/store/slices/input-type";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 
-const Toolbar = () => {
+const Toolbar = ({ index }: { index?: number }) => {
     const [isOptionsWindowOpened, setIsOptionsWindowOpened] = useState(false);
 
-    const editorType = useSelector((state: RootState) => state.inputTypeSlice.inputType);
+    const editorTypes = useSelector((state: RootState) => state.inputTypeSlice.inputType);
 
     const dispatch = useDispatch();
 
@@ -34,13 +34,14 @@ const Toolbar = () => {
     };
 
     // TODO: handle type safety
-    const handleEditorToggle = (type: string) => {
-        dispatch(setInputType(type))
+    const handleInputTypeChange = (index: number, type: InputType) => {
+        dispatch(updateInputType({ index, type }))
     }
 
     return (
         <div className="relative flex justify-between gap-2 p-2 border border-gray-300 rounded-lg bg-white shadow-sm">
-            {editorType === "text" && (<div className="flex items-center gap-3">
+            {(editorTypes[index as number] === "text") ? (
+                <div className="flex items-center gap-3">
                 {/* Dropdown for text type */}
                 <label
                     htmlFor="textType"
@@ -76,7 +77,12 @@ const Toolbar = () => {
                     {/* Button for Code */}
                     <StyleButton format="code" icon={<FaCode />} />
                 </div>
-            </div>)}
+                </div>
+            ) : (
+                <div>
+                    {/* mght need specefic actions or something else */}
+                </div>
+            )} 
 
             <div className="flex justify-end items-center flex-1">
                 <button
@@ -87,9 +93,10 @@ const Toolbar = () => {
                     <IoMdOptions />
                 </button>
 
-                {isOptionsWindowOpened && (<div className="absolute top-[50%] right-[40px] p-2 rounded-lg shadow bg-white border border-gray-200 flex flex-col gap-2">
-                    <button className="px-2 hover:bg-gray-200 rounded-md text-start" type="button" onClick={() => handleEditorToggle("text")}>text</button>
-                    <button className="px-2 hover:bg-gray-200 rounded-md text-start" type="button" onClick={() => handleEditorToggle("media")}>media</button>
+                {isOptionsWindowOpened && (<div className="absolute top-[50%] right-[40px] z-20 p-2 rounded-lg shadow bg-white border border-gray-200 flex flex-col gap-2">
+                    <button className="px-2 hover:bg-gray-200 rounded-md text-start" type="button" onClick={() => handleInputTypeChange(index as number, "text")}>text</button>
+                    <button className="px-2 hover:bg-gray-200 rounded-md text-start" type="button" onClick={() => handleInputTypeChange(index as number, "file")}>media</button>
+                    <button className="px-2 hover:bg-gray-200 rounded-md text-start" type="button" onClick={() => handleInputTypeChange(index as number, "component")}>use component</button>
                 </div>)}
             </div>
         </div>

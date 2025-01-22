@@ -21,11 +21,11 @@ export interface MediaSchema {
 }
 
 export enum SectionSizes {
-    full = "w-full flex justify-center items-start p-5 container mx-auto",
-    oneHalf = "w-1/2 flex-1",
-    oneThird = "1/3",
+    full = "1/1 w-full flex flex-wrap justify-start items-start gap-3",
+    oneHalf = "1/2 flex justify-start flex-wrap items-start gap-3",
+    oneThird = "1/3 w-full flex flex-wrap justify-start items-start gap-3",
     twoThirds = "2/3",
-    oneFourth = "1/4",
+    oneFourth = "1/4 w-full flex flex-wrap justify-start items-start gap-3",
     twoFourth = "2/4",
     threeFourth = "3/4",
 }
@@ -49,11 +49,17 @@ declare module "slate" {
 export type CustomElement = { type: Text; children: CustomText[] };
 export type CustomText = { text: string; bold?: boolean; italic?: boolean; underline?: boolean, code?: boolean };
 
+export interface ChildType {
+    childId?: string;
+    className: string;
+    children: Descendant[]
+}
+
 export interface DataState {
     id?: string;
     name: string;
     description: string;
-    children: Descendant[];
+    children: ChildType[];
     isActive: boolean;
     layout: SectionSizes;
     metadata?: {

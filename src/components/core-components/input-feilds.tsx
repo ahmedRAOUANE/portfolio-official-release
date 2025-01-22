@@ -16,16 +16,18 @@ interface InputFieldsProps {
     defaultValue?: string;
     checked?: boolean;
     defaultChecked?: boolean;
+    autoComplete?: string;
 }
 
 const InputField = ({
     type, name, id, placeholder, required = false,
-    className, label, onChange, defaultValue, checked, defaultChecked
+    className, label, onChange, defaultValue, checked, defaultChecked, autoComplete = "off"
 }: InputFieldsProps) => {
     if (type === "textarea") {
         return (
             <Section className={className}>
                 <textarea
+                    autoComplete={autoComplete}
                     defaultValue={defaultValue}
                     onChange={onChange}
                     className={"focus:outline-none w-full"}
@@ -42,6 +44,7 @@ const InputField = ({
     return (
         <Section className={className}>
             <input
+                autoComplete={autoComplete}
                 defaultValue={defaultValue}
                 className={`${type !== "checkbox" && "w-full focus:outline-none"}`}
                 type={type}
