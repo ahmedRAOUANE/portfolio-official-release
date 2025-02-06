@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import LogoutBtn from '@/components/logout-btn';
 import Sidebar from '@/components/admin-dashboard/sidebar';
 
