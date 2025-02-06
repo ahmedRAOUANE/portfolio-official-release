@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import StoreProvider from "@/providers/store-provider";
+import Modal from "@/components/modal";
 
 // TODO: add the font
 
@@ -21,8 +23,13 @@ export default function RootLayout({
       <body
         className={`antialiased bg-gray-300 text-lg text-gray-800`} 
       >
-        {children}
+        <StoreProvider>
+            {children}
+
+            <Modal />
+        </StoreProvider>
       </body>
     </html>
   );
 }
+

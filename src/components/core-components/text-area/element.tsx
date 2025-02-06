@@ -4,7 +4,7 @@ import { RenderElementProps } from "slate-react";
  * a custom rendering function for element nodes
  * 
  * @param {RenderElementProps} { attributes, children, element }
- * @returns h1 | h2 | h3 | h4 | h5 | p
+ * @returns h1 | h2 | h3 | h4 | h5 | p | ...
  */
 
 const Element = ({ attributes, children, element }: RenderElementProps) => {
@@ -55,3 +55,4 @@ const Element = ({ attributes, children, element }: RenderElementProps) => {
 };
 
 export default Element;
+

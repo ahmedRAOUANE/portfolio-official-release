@@ -11,6 +11,7 @@ import CreateSectionForm from '@/components/admin-dashboard/ui/createSectionForm
 import { getAll } from '@/actions/portfolio/actions';
 import { Tables } from '@/utils/types';
 import Link from 'next/link';
+import OpenModalBtn from '@/components/modal/open-modal-btn';
 
 const SectionsControlCenter = async () => {
     const createdSections = await getAll(Tables.sections);
@@ -30,6 +31,10 @@ const SectionsControlCenter = async () => {
                     <Button className='text-3xl'>
                         <MdEdit />
                     </Button>
+                    {/* //! this line for testing debugging purposes */}
+                    {/* <OpenModalBtn window='success'>
+                        open modal
+                    </OpenModalBtn> */}
                 </Section>
 
                 <ul className='flex gap-3'>

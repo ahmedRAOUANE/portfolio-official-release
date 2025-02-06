@@ -16,6 +16,7 @@
     "@types/react-redux": "^7.1.34",
     "@types/slate": "^0.47.16",
     "draft-js": "^0.11.7",
+    "framer-motion": "^12.1.0",
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

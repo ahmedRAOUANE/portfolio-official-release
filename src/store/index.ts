@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import dataSlice from "./slices/data";
+import modalSlice from "./slices/modal";
 import inputTypeSlice from "./slices/input-type";
 
 const store = configureStore({
     reducer: {
         dataSlice,
-        inputTypeSlice
+        inputTypeSlice,
+        modalSlice
     }
 })
 

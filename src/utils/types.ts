@@ -8,7 +8,7 @@ export enum Tables {
     featureFlags = "feature-flags",
     portfolio = "portfolio",
     profiles = "profiles",
-    portfolioMedia = "media",
+    media = "media",
 }
 
 export interface MediaSchema {
@@ -40,19 +40,35 @@ export type Size = "small" | "medium" | "large";
 // Extend Slate's types to include our custom types
 declare module "slate" {
     interface CustomTypes {
-        Element: CustomElement;
+        Element: CustomElement | MediaElement;
         Text: CustomText;
     }
 }
 
 // Define custom element types
+export type CustomText = {
+    text: string;
+    bold?: boolean;
+    italic?: boolean;
+    underline?: boolean,
+    code?: boolean;
+};
+
 export type CustomElement = { type: Text; children: CustomText[] };
-export type CustomText = { text: string; bold?: boolean; italic?: boolean; underline?: boolean, code?: boolean };
+export type MediaElement = {
+    type: "image" | "video";
+    children: {
+        text: string;
+        src: string;
+    }[];
+}
+
+export type ChildContent = Descendant | MediaElement;
 
 export interface ChildType {
     childId?: string;
     className: string;
-    children: Descendant[]
+    children: ChildContent[]
 }
 
 export interface DataState {
@@ -67,5 +83,11 @@ export interface DataState {
         updatedAt: string; // for development puposes and will be changed later
     };
     // add other properties as needed
+}
+
+export interface CustomeResponse {
+    success: boolean,
+    message: string,
+    error?: unknown | null
 }
 

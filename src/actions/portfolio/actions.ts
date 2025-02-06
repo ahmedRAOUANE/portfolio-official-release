@@ -1,6 +1,6 @@
 "use server";
 
-import { Tables } from "@/utils/types";
+import { CustomeResponse, Tables } from "@/utils/types";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
@@ -38,19 +38,28 @@ export const getSingle = async (targetTable: Tables, id: string) => {
 
 export const create = async <TData>(targetTable: Tables, formData: TData) => {
     const supabase = await createClient();
+    let response: CustomeResponse = {
+        success: true,
+        message: `Successfully created ${targetTable}`
+    }
 
     const { error } = await supabase
         .from(targetTable)
         .insert(formData)
 
     if (error) {
-        console.error(`Failed to create ${targetTable}:`, error);
-        // return null;
+        response = {
+            success: false,
+            message: `Failed to create ${targetTable}`,
+            error
+        }
+
+        return response;
     }
 
     revalidatePath(`/admin/${targetTable}`);
 
-    // return true;
+    return response;
 }
 
 export const update = async <TData>(targetTable: Tables, id: string, newData: TData) => {

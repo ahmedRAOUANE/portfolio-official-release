@@ -7,13 +7,14 @@ import Typography from '@/components/core-components/typography';
 import InputField from '@/components/core-components/input-feilds';
 import { useDispatch } from 'react-redux';
 import { setDescription, setEditorContent, setIsActive, setLayout, setName, updateEditorContent } from '@/store/slices/data';
-import { ChildType, SectionSizes, Tables } from '@/utils/types';
+import { ChildType, CustomeResponse, SectionSizes, Tables } from '@/utils/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { create } from '@/actions/portfolio/actions';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Descendant } from 'slate';
 import { setInputType } from '@/store/slices/input-type';
+import { openModal } from '@/store/slices/modal';
 
 const CreateSectionForm = () => {
     const data = useSelector((state: RootState) => state.dataSlice);
@@ -27,11 +28,18 @@ const CreateSectionForm = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("data: ", data);
-        console.log("data submitted..");
-        // TODO: submit data
-        // const formData = new FormData(e.currentTarget);
-        await create(targetTable, data)
+
+        try {
+            const response = await create(targetTable, data);
+
+            if (!response.success) {
+                dispatch(openModal("success"));
+            } else {
+                dispatch(openModal("error"));
+            };
+        } catch (error) {
+            console.error("Failed to create section:", error);
+        }
     }
 
     const handleContentChange = (index: number, editorContent: Descendant[]) => {
@@ -71,11 +79,9 @@ const CreateSectionForm = () => {
             dispatch(setEditorContent(newChildren))
         }
 
-        // !this is for the next feature
         // initialize input type
         if (data.children.length < editorCount) {
             const newInputType = Array.from({ length: editorCount }, (_, idx) => inputTypes[idx] || "text")
-            //     // dispatch(updateInputType(newInputType))
 
             dispatch(setInputType(newInputType))
         }
@@ -135,10 +141,6 @@ const CreateSectionForm = () => {
 
             <div className={`w-full flex flex-wrap justify-start items-start gap-3`}>
                 {renderEditor()}
-                {/* <Textarea onEditorChange={(editorContent) => handleContentChange(editorContent)} /> --> tryed this tow but it doesn't work? */}
-                {/* <Textarea onEditorChange={(editorContent) => handleContentChange(editorContent)} />
-                <Textarea onEditorChange={(editorContent) => handleContentChange(editorContent)} />
-                <Textarea onEditorChange={(editorContent) => handleContentChange(editorContent)} /> */}
             </div>
 
             <InputField

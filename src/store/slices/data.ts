@@ -1,4 +1,4 @@
-import { ChildType, DataState, SectionSizes } from "@/utils/types";
+import { ChildType, DataState, MediaElement, SectionSizes } from "@/utils/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Descendant } from "slate";
 
@@ -39,10 +39,31 @@ const dataSlice = createSlice({
             if (state.children[index]) {
                 state.children[index].children = content;
             }
+        },
+        setMediaContent: (state, action: PayloadAction<{
+            index: number,
+            src: string,
+            alt: string,
+            type: "image" | "video"
+        }>) => {
+            const { index, src, alt, type } = action.payload;
+
+            if (state.children[index]) {
+                state.children[index].children.push({ type, children: [{ text: alt, src }] });
+            }
         }
     }
 })
 
-export const { setName, setDescription, setEditorContent, setIsActive, setLayout, updateEditorContent } = dataSlice.actions;
+export const {
+    setName,
+    setDescription,
+    setEditorContent,
+    setIsActive,
+    setLayout,
+    updateEditorContent,
+    setMediaContent
+} = dataSlice.actions;
+
 export default dataSlice.reducer;
 

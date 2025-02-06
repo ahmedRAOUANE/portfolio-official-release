@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
 import { createEditor, Descendant } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
 
@@ -9,8 +11,6 @@ import Leaf from "./leaf";
 import Element from "./element";
 import Toolbar from "./toolbar";
 import Section from "../section";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
 import UploadFile from "./upload-file";
 
 interface TextareaProps {
@@ -31,7 +31,6 @@ const Textarea = ({ onEditorChange, defaultValue, index }: TextareaProps) => {
     ];
 
     const handleEdiorChange = (editorValue: Descendant[]) => {
-    // console.log("editor content changed..") // pass
         if (onEditorChange) {
             onEditorChange(editorValue);
         }
@@ -40,6 +39,7 @@ const Textarea = ({ onEditorChange, defaultValue, index }: TextareaProps) => {
     const renderFeild = (index: number) => {
         if (editorTypes[index] === "component") {
             return (
+                // TODO: add component selection don't forget index
                 <div className="w-full h-full flex items-center justify-center">
                     <label htmlFor="component" className="flex">
                         <span>Select Component: </span>
@@ -54,7 +54,7 @@ const Textarea = ({ onEditorChange, defaultValue, index }: TextareaProps) => {
             )
         } else if (editorTypes[index] === "file") {
             return (
-                <UploadFile />
+                <UploadFile sectionIndex={index} />
             )
         }
 
