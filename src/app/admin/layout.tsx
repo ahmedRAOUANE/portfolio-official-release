@@ -5,6 +5,7 @@ import Sidebar from '@/components/admin-dashboard/sidebar';
 
 // icons
 import { IoLogOutOutline } from 'react-icons/io5'
+import LogoImg from '@/components/ui/logo-img';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -13,7 +14,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
             <div className='flex flex-col gap-5 p-3 col-span-12 row-span-1 md:row-span-12 md:col-span-3 bg-white border border-gray-400 shadow'>
                 <div className='flex justify-between items-center mb-10'>
                     <Link href={"/"} className='flex items-center justify-start gap-3'>
-                        <Image src="/meInFormal.svg" alt="Logo" priority width={50} height={50} />
+                        <LogoImg className='w-14' />
 
                         <div>
                             <h1 className='text-2xl font-bold'>Admin</h1>

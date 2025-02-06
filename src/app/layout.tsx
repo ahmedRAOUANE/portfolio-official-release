@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import StoreProvider from "@/providers/store-provider";
 import Modal from "@/components/modal";
+import { logoImg } from "@/utils/static-imports";
 
 // TODO: add the font
 
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   title: "Ahmed Official Portfolio",
   description: "this is the Official release of Ahmed Portfolio",
   icons: {
-    icon: "/meInFormal.svg",
+    icon: logoImg,
   },
 };
 

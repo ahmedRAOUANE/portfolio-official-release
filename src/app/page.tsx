@@ -1,12 +1,16 @@
+
+// components
+import Link from "next/link";
+import Image from "next/image";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import Container from "@/components/core-components/container";
 import Section from "@/components/core-components/section";
+import Container from "@/components/core-components/container";
 import Typography from "@/components/core-components/typography";
+
+// utils
 import { landingPageCardData, projects } from "@/utils/static-data";
 import { SectionSizes } from "@/utils/types";
-import Image from "next/image";
-import Link from "next/link";
 
 export default async function Home() {
   return (

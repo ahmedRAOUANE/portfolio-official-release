@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import { getUserProfile } from '@/utils/data';
 import { navLinks } from '@/utils/static-data';
-import Image from 'next/image'
-import Link from 'next/link';
+import LogoImg from './ui/logo-img';
 
 const Header = async () => {
     const { user } = await getUserProfile();
@@ -9,9 +9,7 @@ const Header = async () => {
     return (
         <header className="container mx-auto p-3 sticky top-0">
             <nav className="flex justify-between items-center border py-3 px-5 rounded-full bg-white z-10 bg-blur-md shadow-lg">
-                <div>
-                    <Image src="/meInFormal.svg" alt="Logo" width={50} height={50} />
-                </div>
+                <LogoImg />
 
                 <div className="hidden md:flex flex-1 items-center justify-end ps-4">
                     <div className="flex items-center">
