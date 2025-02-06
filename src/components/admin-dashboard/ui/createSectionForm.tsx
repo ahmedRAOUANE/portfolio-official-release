@@ -1,20 +1,29 @@
 "use client";
 
+// hooks
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useCallback, useEffect } from 'react';
+
+// server actions
+import { create } from '@/actions/portfolio/actions';
+
+// types
+import { Descendant } from 'slate';
+import { RootState } from '@/store';
+import { ChildType, SectionSizes, Tables } from '@/utils/types';
+
+// actions
+import { openModal } from '@/store/slices/modal';
+import { setInputType } from '@/store/slices/input-type';
+import { setDescription, setEditorContent, setIsActive, setLayout, setName, updateEditorContent } from '@/store/slices/data';
+
+// components
 import Form from '@/components/core-components/forms';
 import Button from '@/components/core-components/buttons';
 import Textarea from '@/components/core-components/text-area';
 import Typography from '@/components/core-components/typography';
 import InputField from '@/components/core-components/input-feilds';
-import { useDispatch } from 'react-redux';
-import { setDescription, setEditorContent, setIsActive, setLayout, setName, updateEditorContent } from '@/store/slices/data';
-import { ChildType, CustomeResponse, SectionSizes, Tables } from '@/utils/types';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { create } from '@/actions/portfolio/actions';
-import { useCallback, useEffect, useState } from 'react';
-import { Descendant } from 'slate';
-import { setInputType } from '@/store/slices/input-type';
-import { openModal } from '@/store/slices/modal';
 
 const CreateSectionForm = () => {
     const data = useSelector((state: RootState) => state.dataSlice);

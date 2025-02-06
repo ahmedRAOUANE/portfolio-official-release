@@ -1,6 +1,6 @@
-import { ChildType, DataState, MediaElement, SectionSizes } from "@/utils/types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Descendant } from "slate";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ChildType, DataState, SectionSizes } from "@/utils/types";
 
 const initialState: DataState = {
     name: "",

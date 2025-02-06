@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { adminNavLinks } from '@/utils/static-data';
 import { FaAngleRight } from 'react-icons/fa';
+import { adminNavLinks } from '@/utils/static-data';
 import { usePathname, useRouter } from 'next/navigation';
 
 const Sidebar = () => {

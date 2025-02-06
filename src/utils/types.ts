@@ -20,6 +20,9 @@ export interface MediaSchema {
     updatedAt: string;
 }
 
+/**
+ * This enum defines the section layout
+ */
 export enum SectionSizes {
     full = "1/1 w-full flex flex-wrap justify-start items-start gap-3",
     oneHalf = "1/2 flex justify-start flex-wrap items-start gap-3",
@@ -30,14 +33,9 @@ export enum SectionSizes {
     threeFourth = "3/4",
 }
 
-export type Text = "paragraph" | "heading-one" | "heading-two" | "heading-three" | "heading-four" | "heading-five";
-export type Alignment = "left" | "center" | "right";
-export type FontStyle = "bold" | "italic" | "underline" | "code";
-
-// the size feature is not yet implemented
-export type Size = "small" | "medium" | "large"; 
-
-// Extend Slate's types to include our custom types
+/** 
+    * Extend Slate's types to include our custom types 
+*/
 declare module "slate" {
     interface CustomTypes {
         Element: CustomElement | MediaElement;
@@ -45,32 +43,11 @@ declare module "slate" {
     }
 }
 
-// Define custom element types
-export type CustomText = {
-    text: string;
-    bold?: boolean;
-    italic?: boolean;
-    underline?: boolean,
-    code?: boolean;
-};
+/** 
+    * the data state schema -> for now it compatible only with create section form
 
-export type CustomElement = { type: Text; children: CustomText[] };
-export type MediaElement = {
-    type: "image" | "video";
-    children: {
-        text: string;
-        src: string;
-    }[];
-}
-
-export type ChildContent = Descendant | MediaElement;
-
-export interface ChildType {
-    childId?: string;
-    className: string;
-    children: ChildContent[]
-}
-
+    * TODO: it might update to be compatible with other forms
+*/
 export interface DataState {
     id?: string;
     name: string;
@@ -85,6 +62,48 @@ export interface DataState {
     // add other properties as needed
 }
 
+/**
+    * Define custom element types 
+*/
+export type CustomElement = { type: Text; children: CustomText[] };
+
+export type Text = "paragraph" | "heading-one" | "heading-two" | "heading-three" | "heading-four" | "heading-five";
+export type FontStyle = "bold" | "italic" | "underline" | "code";
+
+//? these features are not yet implemented 
+export type Alignment = "left" | "center" | "right";
+export type Size = "small" | "medium" | "large"; 
+
+export type CustomText = {
+    text: string;
+    bold?: boolean;
+    italic?: boolean;
+    underline?: boolean,
+    code?: boolean;
+};
+
+export type MediaElement = {
+    type: "image" | "video";
+    children: {
+        text: string;
+        src: string;
+    }[];
+}
+
+export type ChildContent = Descendant | MediaElement;
+
+/**
+ * Data state Children property type
+ */
+export interface ChildType {
+    childId?: string;
+    className: string;
+    children: ChildContent[]
+}
+
+/**
+ *  custom response schema used to handle api null | undefined | error responses
+ */
 export interface CustomeResponse {
     success: boolean,
     message: string,

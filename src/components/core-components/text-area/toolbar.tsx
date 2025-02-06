@@ -1,18 +1,21 @@
 "use client";
 
+// hooks
+import { useState } from "react";
 import { useSlate } from "slate-react";
-import { BaseEditor, Editor, Element as SlateElement, Transforms } from "slate";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 // Icons
 import { MdTitle, MdFormatBold, MdFormatItalic, MdOutlineFormatUnderlined } from "react-icons/md";
 import { FaCode } from "react-icons/fa";
-import { FontStyle, Text } from "@/utils/types";
 import { IoMdOptions } from "react-icons/io";
-import { useDispatch } from "react-redux";
-import { InputType, updateInputType } from "@/store/slices/input-type";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+
+// types
 import { RootState } from "@/store";
+import { FontStyle, Text } from "@/utils/types";
+import { InputType, updateInputType } from "@/store/slices/input-type";
+import { BaseEditor, Editor, Element as SlateElement, Transforms } from "slate";
 
 const Toolbar = ({ index }: { index?: number }) => {
     const [isOptionsWindowOpened, setIsOptionsWindowOpened] = useState(false);

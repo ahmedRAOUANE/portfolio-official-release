@@ -1,17 +1,16 @@
+import { Tables } from '@/utils/types';
+import { getAll } from '@/actions/portfolio/actions';
 
 // components
+import Link from 'next/link';
 import Button from '@/components/core-components/buttons';
 import Section from '@/components/core-components/section';
 import Container from '@/components/core-components/container';
 import Typography from '@/components/core-components/typography';
+import CreateSectionForm from '@/components/admin-dashboard/ui/createSectionForm';
 
 // icons
 import { MdEdit } from 'react-icons/md';
-import CreateSectionForm from '@/components/admin-dashboard/ui/createSectionForm';
-import { getAll } from '@/actions/portfolio/actions';
-import { Tables } from '@/utils/types';
-import Link from 'next/link';
-import OpenModalBtn from '@/components/modal/open-modal-btn';
 
 const SectionsControlCenter = async () => {
     const createdSections = await getAll(Tables.sections);

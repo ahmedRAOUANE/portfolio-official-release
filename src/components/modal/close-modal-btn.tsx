@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react'
-import Button from '../core-components/buttons';
 import { useDispatch } from 'react-redux';
+import Button from '../core-components/buttons';
 import { closeModal } from '@/store/slices/modal';
 
 const CloseModalBtn = () => {

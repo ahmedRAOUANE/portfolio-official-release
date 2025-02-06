@@ -1,10 +1,10 @@
 "use client";
 
-import { uploadMedia } from "@/actions/portfolio/media-actions";
-import { setMediaContent } from "@/store/slices/data";
-import { ChangeEvent, useState } from "react";
-import { useDispatch } from "react-redux";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { ChangeEvent, useState } from "react";
+import { setMediaContent } from "@/store/slices/data";
+import { uploadMedia } from "@/actions/portfolio/media-actions";
 
 const UploadFile = ({ sectionIndex }: { sectionIndex: number }) => {
     const dispatch = useDispatch();

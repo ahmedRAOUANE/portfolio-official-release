@@ -1,5 +1,5 @@
-import { FEATURE_FLAGS } from "@/lib/featureFlags.config";
 import { createClient } from "../lib/supabase/server";
+import { FEATURE_FLAGS } from "@/lib/featureFlags.config";
 
 export class FeatureFlagService {
     private static instance: FeatureFlagService;

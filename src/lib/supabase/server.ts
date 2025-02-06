@@ -1,6 +1,6 @@
-import { supabaseAnonKey, supabaseUrl } from '@/utils/env-vars'
-import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { createServerClient } from '@supabase/ssr'
+import { supabaseAnonKey, supabaseUrl } from '@/utils/env-vars'
 
 export async function createClient() {
     const cookieStore = await cookies()
