@@ -12,10 +12,11 @@ import Element from "./element";
 import Toolbar from "./toolbar";
 import Section from "../section";
 import UploadFile from "./upload-file";
+import { CustomElement } from "@/utils/types";
 
 interface TextareaProps {
     onEditorChange?: (editorValue: Descendant[]) => void;
-    defaultValue?: Descendant[];
+    defaultValue?: CustomElement[];
     index?: number;
 }
 
@@ -23,10 +24,13 @@ const Textarea = ({ onEditorChange, defaultValue, index }: TextareaProps) => {
     const editorTypes = useSelector((state: RootState) => state.inputTypeSlice.inputType)
 
     const [editor] = useState(() => withReact(createEditor()));
-    const initialValue: Descendant[] = defaultValue || [
+    const initialValue: CustomElement[] = defaultValue || [
         {
             type: "paragraph",
-            children: [{ text: "" }],
+            props: {},
+            children: [
+                { text: "" }
+            ],
         },
     ];
 

@@ -1,9 +1,10 @@
 "use client";
 
 // hooks
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useCallback, useEffect } from 'react';
+import { useLayout } from '@/hooks/layout';
 
 // server actions
 import { create } from '@/actions/portfolio/actions';
@@ -11,12 +12,12 @@ import { create } from '@/actions/portfolio/actions';
 // types
 import { Descendant } from 'slate';
 import { RootState } from '@/store';
-import { ChildType, SectionSizes, Tables } from '@/utils/types';
+import { CustomElement, Element, SectionSizes, Tables } from '@/utils/types';
 
 // actions
 import { openModal } from '@/store/slices/modal';
-import { setInputType } from '@/store/slices/input-type';
-import { setDescription, setEditorContent, setIsActive, setLayout, setName, updateEditorContent } from '@/store/slices/data';
+import { addInputType } from '@/store/slices/input-type';
+import { addChild, setDescription, setIsActive, setLayout, setName, updateChild } from '@/store/slices/ast';
 
 // components
 import Form from '@/components/core-components/forms';
@@ -26,25 +27,36 @@ import Typography from '@/components/core-components/typography';
 import InputField from '@/components/core-components/input-feilds';
 
 const CreateSectionForm = () => {
-    const data = useSelector((state: RootState) => state.dataSlice);
+    const data = useSelector((state: RootState) => state.astSlice);
 
     const layoutState = useSelector((state: RootState) => state.dataSlice.layout);
     const inputTypes = useSelector((state: RootState) => state.inputTypeSlice.inputType);
 
     const dispatch = useDispatch();
 
-    const targetTable = Tables.sections;
+    const targetTable = Tables.portfolio;
+
+    const { getEditorCount } = useLayout();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            const response = await create(targetTable, data);
+            const content = {
+                content: new Element("section", {
+                    name: data.props?.name as string,
+                    description: data.props?.description as string,
+                    layout: data.props?.layout as SectionSizes,
+                    isActive: data.props?.isActive as boolean
+                }, [data]).toJSON()
+            }
+
+            const response = await create(targetTable, content);
 
             if (!response.success) {
-                dispatch(openModal("success"));
-            } else {
                 dispatch(openModal("error"));
+            } else {
+                dispatch(openModal("success"));
             };
         } catch (error) {
             console.error("Failed to create section:", error);
@@ -52,49 +64,24 @@ const CreateSectionForm = () => {
     }
 
     const handleContentChange = (index: number, editorContent: Descendant[]) => {
-        dispatch(updateEditorContent({ index, content: editorContent }));
+        dispatch(updateChild({ index, content: { type: "section", props: {}, children: editorContent } }));
     }
-
-    const getEditorCount = useCallback(() => {
-        let count = 1;
-        if (
-            layoutState === SectionSizes.oneHalf
-            || layoutState === SectionSizes.twoThirds
-            || layoutState === SectionSizes.twoFourth
-            || layoutState === SectionSizes.threeFourth
-        ) {
-            count = 2;
-        } else if (layoutState === SectionSizes.oneThird) {
-            count = 3;
-        } else if (layoutState === SectionSizes.oneFourth) {
-            count = 4;
-        }
-
-        return count;
-    }, [layoutState]);
 
     useEffect(() => {
         const editorCount = getEditorCount();
 
+        if (!data || !data.children) return;
+
         // initialize the children inside data state
         if (data.children.length < editorCount) {
-            const newChildren: ChildType[] = Array.from({ length: editorCount }, (_, idx) => (
-                {
-                    childId: `child-${idx}`,
-                    className: "",
-                    children: data.children[idx]?.children || [] // preserve existing content if available
-                }
-            ));
-            dispatch(setEditorContent(newChildren))
+            dispatch(addChild({ type: "section", props: {}, children: [] }))
         }
 
         // initialize input type
         if (data.children.length < editorCount) {
-            const newInputType = Array.from({ length: editorCount }, (_, idx) => inputTypes[idx] || "text")
-
-            dispatch(setInputType(newInputType))
+            dispatch(addInputType("text"))
         }
-    }, [layoutState, data.children.length, dispatch, data.children, getEditorCount, inputTypes]);
+    }, [layoutState, data.children?.length, dispatch, data.children, getEditorCount, inputTypes, data]);
 
     const renderEditor = () => {
         const editorCount = getEditorCount();

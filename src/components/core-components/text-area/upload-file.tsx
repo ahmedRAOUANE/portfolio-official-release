@@ -3,8 +3,9 @@
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { ChangeEvent, useState } from "react";
-import { setMediaContent } from "@/store/slices/data";
-import { uploadMedia } from "@/actions/portfolio/media-actions";
+import { updateChild } from "@/store/slices/ast";
+import { uploadMedia } from "@/actions/media-actions";
+import { Element, Media, MediaElement } from "@/utils/types";
 
 const UploadFile = ({ sectionIndex }: { sectionIndex: number }) => {
     const dispatch = useDispatch();
@@ -22,9 +23,29 @@ const UploadFile = ({ sectionIndex }: { sectionIndex: number }) => {
         try {
             const results = await uploadMedia(e.target.files);
             setUploadResults(results || []);
-            console.log("results: ", results);
             setLoading(false);
-            results?.map(result => dispatch(setMediaContent({ index: sectionIndex, src: result.data.publicUrl, alt: result.fileName, type: "image" })));
+
+            const fileData = results?.map(result =>
+                new Element(result.data.fileType.startsWith("image") ? "image" : "video", {
+                    name: result.fileName,
+                    description: result.fileName,
+                    isActive: true,
+                }, ([
+                    {
+                        src: result.data.publicUrl,
+                        type: result.data.fileType as Media,
+                        alt: result.fileName,
+                    }
+                ] as MediaElement[])).toJSON()
+            );
+
+            const newData = new Element("section", {
+                name: "section",
+                description: "section",
+                isActive: true,
+            }, fileData).toJSON();
+
+            dispatch(updateChild({ index: sectionIndex, content: newData }));
         } catch (error) {
             console.error("Failed to upload media:", error);
         } finally {

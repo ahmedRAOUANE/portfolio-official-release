@@ -1,6 +1,6 @@
 import { Descendant } from "slate";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ChildType, DataState, SectionSizes } from "@/utils/types";
+import { ChildType, CustomElement, DataState, SectionSizes } from "@/utils/types";
 
 const initialState: DataState = {
     name: "",
@@ -33,7 +33,7 @@ const dataSlice = createSlice({
         setLayout: (state, action: PayloadAction<SectionSizes>) => {
             state.layout = action.payload
         },
-        updateEditorContent: (state, action: PayloadAction<{ index: number, content: Descendant[] }>) => {
+        updateEditorContent: (state, action: PayloadAction<{ index: number, content: CustomElement[] }>) => {
             const { index, content } = action.payload;
 
             if (state.children[index]) {
@@ -49,7 +49,7 @@ const dataSlice = createSlice({
             const { index, src, alt, type } = action.payload;
 
             if (state.children[index]) {
-                state.children[index].children.push({ type, children: [{ text: alt, src }] });
+                state.children[index].children.push({ type, props: {}, children: [{ text: alt, src }] });
             }
         }
     }

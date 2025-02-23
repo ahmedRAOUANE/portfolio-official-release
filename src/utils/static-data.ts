@@ -110,3 +110,82 @@ export const adminNavLinks = [
     }
 ]
 
+export const exampleAST = [
+    {
+        "id": 8,
+        "name": "new section",
+        "children": [
+            {
+                "childId": "child-0",
+                "children": [
+                    {
+                        "type": "paragraph",
+                        "children": [
+                            {
+                                "text": "new section"
+                            }
+                        ]
+                    }
+                ],
+                "className": ""
+            },
+            {
+                "childId": "child-1",
+                "children": [
+                    {
+                        "type": "image",
+                        "children": [
+                            {
+                                "src": "https://nbfkesfgzlbgewtvqwbb.supabase.co/storage/v1/object/public/portfolio-media/1738669329986-learning%20map.jpg",
+                                "text": "1738669329986-learning map.jpg"
+                            }
+                        ]
+                    }
+                ],
+                "className": ""
+            }
+        ],
+        "isActive": false,
+        "description": "this is a new section",
+        "layout": "1/2 flex justify-start flex-wrap items-start gap-3",
+        "metadata": {
+            "createdAt": "1738669198776",
+            "updatedAt": "1738669198776"
+        }
+    },
+    {
+        "id": 9,
+        "name": "first section",
+        "children": [
+            {
+                "childId": "child-0",
+                "children": [
+                    {
+                        "type": "heading-one",
+                        "children": [
+                            {
+                                "text": "Big Title"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "paragraph",
+                        "children": [
+                            {
+                                "text": " and some text bellow"
+                            }
+                        ]
+                    }
+                ],
+                "className": ""
+            }
+        ],
+        "isActive": true,
+        "description": "this is the first section created by the completed version of the section builder system",
+        "layout": "1/1 w-full flex flex-wrap justify-start items-start gap-3",
+        "metadata": {
+            "createdAt": "1739092080461",
+            "updatedAt": "1739092080461"
+        }
+    }
+]

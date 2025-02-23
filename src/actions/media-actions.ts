@@ -2,35 +2,8 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { Tables } from "@/utils/types";
-// import { revalidatePath } from "next/cache";
 
 const targetTable = Tables.media;
-
-// const createMediaData = async (file: File) => {
-//     const supabase = await createClient();
-
-//     const fileData = {
-//         name: file.name,
-//         size: file.size,
-//         type: file.type,
-//         extension: file.name.split(".").pop(),
-//         createdAt: new Date().toISOString(),
-//         updatedAt: new Date().toISOString(),
-//         url: URL.createObjectURL(file),
-//     }
-
-//     const { data, error } = await supabase
-//         .from(targetTable)
-//         .insert(fileData)
-//         .select("*");
-
-//     if (error) {
-//         console.error("Failed to create media data:", error);
-//         return null;
-//     }
-
-//     return data;
-// }
 
 export const uploadMedia = async (files: FileList) => {
     const supabase = await createClient();
@@ -80,7 +53,7 @@ export const uploadMedia = async (files: FileList) => {
                 // continue; // skip to the next file
             }
 
-            uploadResults.push({ fileName, success: true, data: {...data, publicUrl: urlData.publicUrl} });
+            uploadResults.push({ fileName, success: true, data: {...data, publicUrl: urlData.publicUrl, fileType: file.type} });
         }
 
         return uploadResults;

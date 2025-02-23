@@ -2,12 +2,14 @@ import dataSlice from "./slices/data";
 import modalSlice from "./slices/modal";
 import inputTypeSlice from "./slices/input-type";
 import { configureStore } from "@reduxjs/toolkit";
+import astSlice from "./slices/ast";
 
 const store = configureStore({
     reducer: {
         dataSlice,
         inputTypeSlice,
-        modalSlice
+        modalSlice,
+        astSlice,
     }
 })
 

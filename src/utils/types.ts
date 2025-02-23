@@ -38,38 +38,89 @@ export enum SectionSizes {
 */
 declare module "slate" {
     interface CustomTypes {
-        Element: CustomElement | MediaElement;
+        Element: CustomElement;
         Text: CustomText;
     }
 }
 
-/** 
-    * the data state schema -> for now it compatible only with create section form
+/**
+ * This is the syntax tree of the data state
+ */
+export type CustomElement = {
+    type: Text | Media | Container;
+    props?: Partial<{
+        id: string;
+        name: string;
+        className: string;
+        isActive: boolean;
+        description: string;
+        layout: SectionSizes;
+        metadata: {
+            createdAt: string;
+            updatedAt: string;
+        };
+    }>;
+    children?: CustomElement[] | ChildContent[];
+};
 
-    * TODO: it might update to be compatible with other forms
-*/
-export interface DataState {
-    id?: string;
-    name: string;
-    description: string;
-    children: ChildType[];
-    isActive: boolean;
-    layout: SectionSizes;
-    metadata?: {
-        createdAt: string; // for development puposes and will be changed later
-        updatedAt: string; // for development puposes and will be changed later
-    };
-    // add other properties as needed
+export class Element implements CustomElement {
+    type: Text | Media | Container;
+    props?: Partial<{
+        id: string;
+        name: string;
+        className: string;
+        isActive: boolean;
+        description: string;
+        layout: SectionSizes;
+        metadata: {
+            createdAt: string;
+            updatedAt: string;
+        };
+    }> | undefined;
+    children?: CustomElement[] | ChildContent[] | undefined;
+    constructor(
+        type: Text | Media | Container,
+        props: Partial<{
+            id: string;
+            name: string;
+            className: string;
+            isActive: boolean;
+            description: string;
+            layout: SectionSizes;
+            metadata: {
+                createdAt: string;
+                updatedAt: string;
+            };
+        }>,
+        children: CustomElement[] | ChildContent[] | undefined
+    ) {
+        this.type = type;
+        this.props = props;
+        this.children = children;
+    }
+
+    toJSON() {
+        return {
+            type: this.type,
+            props: this.props,
+            children: this.children?.map(
+                (child: CustomElement | ChildContent): (CustomElement | ChildContent) => {
+                    if (child instanceof Element) {
+                        return child.toJSON();
+                    }
+
+                    return child;
+                }
+            ),
+        };
+    }
 }
 
-/**
-    * Define custom element types 
-*/
-export type CustomElement = { type: Text; children: CustomText[] };
+export type Text = "paragraph" | "heading-one" | "heading-two" | "heading-three" | "heading-four" | "heading-five" | "heading-six";
+export type Media = "image" | "video";
+export type Container = "container" | "section";
 
-export type Text = "paragraph" | "heading-one" | "heading-two" | "heading-three" | "heading-four" | "heading-five";
 export type FontStyle = "bold" | "italic" | "underline" | "code";
-
 //? these features are not yet implemented 
 export type Alignment = "left" | "center" | "right";
 export type Size = "small" | "medium" | "large"; 
@@ -83,14 +134,12 @@ export type CustomText = {
 };
 
 export type MediaElement = {
-    type: "image" | "video";
-    children: {
-        text: string;
-        src: string;
-    }[];
+    src: string;
+    type: Media;
+    alt: string;
 }
 
-export type ChildContent = Descendant | MediaElement;
+export type ChildContent = CustomText | Descendant | MediaElement;
 
 /**
  * Data state Children property type
@@ -98,7 +147,7 @@ export type ChildContent = Descendant | MediaElement;
 export interface ChildType {
     childId?: string;
     className: string;
-    children: ChildContent[]
+    children: ChildContent[];
 }
 
 /**

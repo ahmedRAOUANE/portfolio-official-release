@@ -14,7 +14,7 @@ const MediaFile = ({ src, type, alt, className }: MediaFilesProps) => {
         <video src={src} className={className}></video>
     }
 
-    return <Image src={src} alt={alt} priority className={className} />
+    return <Image src={src} alt={alt} priority className={className} width={100} height={100}/>
 }
 
 export default MediaFile;

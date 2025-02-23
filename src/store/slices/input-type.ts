@@ -22,10 +22,13 @@ const inputTypeSlice = createSlice({
             if (state.inputType[index]) {
                 state.inputType[index] = type;
             }
+        },
+        addInputType: (state, action: PayloadAction<InputType>) => {
+            state.inputType.push(action.payload);
         }
     }
 })
 
-export const { setInputType, updateInputType } = inputTypeSlice.actions;
+export const { setInputType, updateInputType, addInputType } = inputTypeSlice.actions;
 export default inputTypeSlice.reducer;
 

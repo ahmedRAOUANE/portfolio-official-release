@@ -4,7 +4,7 @@ import { CustomeResponse, Tables } from "@/utils/types";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
-export const getAll = async (targetTable: Tables) => {
+export const getAll = async <Data>(targetTable: Tables): Promise<Data[]> => {
     const supabase = await createClient();
 
     const { data, error } = await supabase
@@ -37,6 +37,7 @@ export const getSingle = async (targetTable: Tables, id: string) => {
 }
 
 export const create = async <TData>(targetTable: Tables, formData: TData) => {
+    console.log("form Data: ", formData);
     const supabase = await createClient();
     let response: CustomeResponse = {
         success: true,
@@ -97,3 +98,4 @@ export const deleteTarget = async (targetTable: Tables, id: string) => {
 
     // return true;
 }
+
