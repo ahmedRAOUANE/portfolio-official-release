@@ -12,7 +12,7 @@ import { create } from '@/actions/portfolio/actions';
 // types
 import { Descendant } from 'slate';
 import { RootState } from '@/store';
-import { CustomElement, Element, SectionSizes, Tables } from '@/utils/types';
+import { Element, SectionSizes, Tables } from '@/utils/types';
 
 // actions
 import { openModal } from '@/store/slices/modal';
@@ -29,8 +29,8 @@ import InputField from '@/components/core-components/input-feilds';
 const CreateSectionForm = () => {
     const data = useSelector((state: RootState) => state.astSlice);
 
-    const layoutState = useSelector((state: RootState) => state.dataSlice.layout);
     const inputTypes = useSelector((state: RootState) => state.inputTypeSlice.inputType);
+    const layoutState = useSelector((state: RootState) => state.astSlice.props?.layout);
 
     const dispatch = useDispatch();
 
@@ -81,7 +81,7 @@ const CreateSectionForm = () => {
         if (data.children.length < editorCount) {
             dispatch(addInputType("text"))
         }
-    }, [layoutState, data.children?.length, dispatch, data.children, getEditorCount, inputTypes, data]);
+    }, [data.children?.length, dispatch, data.children, getEditorCount, inputTypes, data]);
 
     const renderEditor = () => {
         const editorCount = getEditorCount();

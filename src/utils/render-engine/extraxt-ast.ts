@@ -1,5 +1,4 @@
-import { CustomElement, Element } from "../types";
-import { ASTNode } from "./ast-nodes";
+import { CustomElement } from "../types";
 
 /**
  * This function collects the data into one syntax tree
@@ -7,7 +6,7 @@ import { ASTNode } from "./ast-nodes";
  * @returns ASTNode
  */
 export const toAST = (data: { id: string, content: CustomElement[] }[]) => {
-    let ASTNodeArray: CustomElement[] = [];
+    const ASTNodeArray: CustomElement[] = [];
 
     data.forEach((item) => {
         if (Array.isArray(item.content)) {

@@ -11,7 +11,7 @@ import InputField from '@/components/core-components/input-feilds';
 
 // icons
 import { FaArrowLeft } from 'react-icons/fa';
-import { DataState, SectionSizes, Tables } from '@/utils/types';
+import { SectionSizes, Tables } from '@/utils/types';
 import Textarea from '@/components/core-components/text-area';
 import { FeatureFlagService } from '@/services/featureFlags';
 
@@ -33,7 +33,8 @@ const EditSection = async ({ params }: { params: Promise<{ sectionId: string }> 
 
     const { sectionId } = await params;
     const targetTable = Tables.sections;
-    const data: DataState = await getSingle(targetTable, sectionId);
+    // TODO: Add type and validation
+    const data = await getSingle(targetTable, sectionId);
     console.log(data);
 
     const handleUpdate = async (data: FormData) => {

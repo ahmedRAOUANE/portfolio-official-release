@@ -1,5 +1,5 @@
 // server actions
-import { createHeaderLink } from '@/actions/portfolio/header-actions';
+// import { createHeaderLink } from '@/actions/portfolio/header-actions';
 
 // components
 import Link from 'next/link';
@@ -12,12 +12,24 @@ import InputField from '@/components/core-components/input-feilds';
 
 // icons
 import { MdEdit } from 'react-icons/md';
-import { getAll } from '@/actions/portfolio/actions';
+import { create, getAll } from '@/actions/portfolio/actions';
 import { Tables } from '@/utils/types';
 
 const HeaderConterolCenter = async () => {
-    const headerLinks = await getAll(Tables.headerLinks);
+    interface HeaderLinks {
+        id: string;
+        name: string;
+        url: string;
+        isVisible: boolean;
+        description: string;
+    }
+    const headerLinks: HeaderLinks[] = await getAll<HeaderLinks>(Tables.headerLinks);
 
+    const handleCreateHeaderLink = async (data: FormData) => {
+        "use server";
+
+        await create(Tables.headerLinks, data);
+    }
     return (
         <Container variant="main" className='container p-5 flex flex-col gap-20'>
             <Container variant='section' className='flex flex-col gap-5 p-10'>
@@ -47,7 +59,7 @@ const HeaderConterolCenter = async () => {
             <Container variant='section' >
                 <Typography variant='h2' className='text-2xl mb-3'>Add New Link</Typography>
 
-                <Form action={createHeaderLink} className='flex flex-col gap-3'>
+                <Form action={handleCreateHeaderLink} className='flex flex-col gap-3'>
                     <InputField className='px-4 py-2 rounded-lg bg-white outline-1 shadow-md' type="text" name="name" id="name" placeholder='name' />
                     <InputField className='px-4 py-2 rounded-lg bg-white outline-1 shadow-md' type="text" name="description" id="description" placeholder='description' />
                     <InputField className='px-4 py-2 rounded-lg bg-white outline-1 shadow-md' type="text" name="href" id="href" placeholder='href' />
